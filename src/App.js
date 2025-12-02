@@ -7,6 +7,13 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  
+  // Typing animation states
+  const [titleIndex, setTitleIndex] = useState(0);
+  const [titleText, setTitleText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const titles = ['Software Engineer', 'Web Developer', 'Web Designer', 'Frontend Engineer'];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +49,36 @@ function App() {
 
     return () => observer.disconnect();
   }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    const currentTitle = titles[titleIndex];
+    const typingSpeed = isDeleting ? 50 : 100;
+    const pauseTime = 2000; // Pause when fully typed
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (titleText.length < currentTitle.length) {
+          setTitleText(currentTitle.slice(0, titleText.length + 1));
+        } else {
+          // Finished typing, pause then start deleting
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        // Deleting
+        if (titleText.length > 0) {
+          setTitleText(currentTitle.slice(0, titleText.length - 1));
+        } else {
+          // Finished deleting, move to next title
+          setIsDeleting(false);
+          setTitleIndex((prev) => (prev + 1) % titles.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [titleText, isDeleting, titleIndex, titles]);
 
   const skills = [
     'React.js', 'JavaScript', 'TypeScript',
@@ -160,11 +197,11 @@ function App() {
           <div className="relative">
             <p className="text-xl mb-4 animate-fade-in">
               <span className="text-white">Hi, I'm </span>
-              <span className="text-purple-400 font-semibold">Chiamaka Nwafor</span>
+              <span className="text-purple-400 font-semibold text-3xl">Chiamaka Nwafor</span>
             </p>
             
             <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-slide-up leading-tight">
-              <span className="text-white">&lt;Software Engineer</span>
+              <span className="text-white">&lt;{titleText}</span>
               <span className="text-purple-400">/&gt;</span>
               <span className="animate-blink text-white">|</span>
             </h1>
