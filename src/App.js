@@ -5,8 +5,6 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
-  
-  // Typing animation states
   const [titleIndex, setTitleIndex] = useState(0);
   const [titleText, setTitleText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -41,7 +39,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Typing animation effect
   useEffect(() => {
     const currentTitle = titles[titleIndex];
     const typingSpeed = isDeleting ? 50 : 100;
@@ -76,21 +73,21 @@ function App() {
     {
       title: 'ShareABite',
       description: 'A left-over food sharing platform that help reduce food waste',
-      image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500',
+      image: 'images/ShareABite.jpg',
       liveLink: 'https://shareabite-ten.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/shareabite'
     },
     {
       title: 'Loan Dashboard',
       description: 'An interactive dashboard for managing and tracking loans and repayments.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500',
+      image: 'images/Dashboard.jpg',
       liveLink: 'https://loan-dashboard-rosy.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/Loan-Dashboard'
     },
     {
       title: 'Portfolio Website',
       description: 'A personal portfolio website to showcase projects and skills.',
-      image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500',
+      image: 'images/Portfolio.jpg',
       liveLink: 'https://pennywisechee.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/my-portfolio'
     }
@@ -98,93 +95,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        
-        body {
-          font-family: 'Space Grotesk', sans-serif;
-        }
-        
-        .grid-background {
-          width: 100%;
-          height: 100%;
-          background-image: 
-            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-          background-size: 50px 50px;
-          animation: grid-move 20s linear infinite;
-        }
-        
-        @keyframes grid-move {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
-        }
-        
-        .floating-square {
-          position: absolute;
-          width: 80px;
-          height: 80px;
-          border: 2px solid rgba(139, 92, 246, 0.3);
-          animation: float-rotate 10s ease-in-out infinite;
-        }
-        
-        .floating-circle {
-          position: absolute;
-          width: 60px;
-          height: 60px;
-          border: 2px solid rgba(236, 72, 153, 0.3);
-          border-radius: 50%;
-          animation: float 8s ease-in-out infinite;
-        }
-        
-        @keyframes float-rotate {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(180deg); }
-        }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
-        }
-        
-        @keyframes blink {
-          0%, 49% { opacity: 1; }
-          50%, 100% { opacity: 0; }
-        }
-        
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-        
-        .animate-blink {
-          animation: blink 1s step-start infinite;
-        }
-        
-        section {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        section.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        section#home {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        html {
-          scroll-behavior: smooth;
-        }
-      `}</style>
 
       {/* Animated Grid Background */}
       <div className="fixed inset-0 pointer-events-none opacity-20">
@@ -374,7 +284,7 @@ function App() {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <div className="relative aspect-square bg-gray-900 rounded-2xl overflow-hidden border-2 border-purple-500/30 transform group-hover:scale-105 transition-all duration-500">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Portrait" className="w-full h-full object-cover"/>
+                <img src="images/MyImage.jpg" alt="Portrait" className="w-full h-full object-cover"/>
               </div>
             </div>
           </div>
