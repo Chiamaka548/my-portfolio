@@ -67,8 +67,8 @@ function App() {
       title: 'Portfolio Website',
       description: 'A personal portfolio website to showcase projects and skills.',
       image: '/images/Portfolio.jpg',
-      liveLink: 'https://yourportfolio.example.com',
-      githubLink: 'https://github.com/Chiamaka548/portfolio'
+      liveLink: 'https://pennywisechee.vercel.app/',
+      githubLink: 'https://github.com/Chiamaka548/my-portfolio'
     }
   ];
 
@@ -233,7 +233,7 @@ function App() {
 
       {/* Projects Section */}
       <section id="projects" className={`py-20 px-6 relative ${visibleSections.has('projects') ? 'visible' : ''}`}>
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-purple-400">#projects</h2>
             <div className="h-px flex-1 bg-gradient-to-r from-purple-400 to-transparent"></div>
@@ -325,16 +325,17 @@ function App() {
           <p className="text-xl text-gray-300 mb-8">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
-          <button className="px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nwaforchiamaka548@gmail.com" target="_blank" rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50">
             Get In Touch
-          </button>
+          </a>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-purple-500/20">
         <div className="max-w-4xl mx-auto text-center text-gray-400">
-          <p className="text-lg">© 2025 Chiamaka Nwafor. Built with React & Tailwind CSS.</p>
+          <p className="text-lg">© Coded by Chiamaka Nwafor.</p>
         </div>
       </footer>
     </div>
