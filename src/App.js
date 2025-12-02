@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail, MessageCircle, Download, ExternalLink } from 'lucide-react';
-import './App.css';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   
   // Typing animation states
   const [titleIndex, setTitleIndex] = useState(0);
   const [titleText, setTitleText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
+  // eslint-disable-next-line
   const titles = ['Software Engineer', 'Web Developer', 'Web Designer', 'Frontend Engineer'];
 
   useEffect(() => {
@@ -21,14 +20,6 @@ function App() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   useEffect(() => {
@@ -54,23 +45,19 @@ function App() {
   useEffect(() => {
     const currentTitle = titles[titleIndex];
     const typingSpeed = isDeleting ? 50 : 100;
-    const pauseTime = 2000; // Pause when fully typed
+    const pauseTime = 2000;
 
     const timer = setTimeout(() => {
       if (!isDeleting) {
-        // Typing
         if (titleText.length < currentTitle.length) {
           setTitleText(currentTitle.slice(0, titleText.length + 1));
         } else {
-          // Finished typing, pause then start deleting
           setTimeout(() => setIsDeleting(true), pauseTime);
         }
       } else {
-        // Deleting
         if (titleText.length > 0) {
           setTitleText(currentTitle.slice(0, titleText.length - 1));
         } else {
-          // Finished deleting, move to next title
           setIsDeleting(false);
           setTitleIndex((prev) => (prev + 1) % titles.length);
         }
@@ -88,22 +75,22 @@ function App() {
   const projects = [
     {
       title: 'ShareABite',
-      description: 'A left-over food sharing platform that help reduce food waste built',
-      image: '/images/ShareABite.jpg',
+      description: 'A left-over food sharing platform that help reduce food waste',
+      image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500',
       liveLink: 'https://shareabite-ten.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/shareabite'
     },
     {
       title: 'Loan Dashboard',
       description: 'An interactive dashboard for managing and tracking loans and repayments.',
-      image: '/images/Dashboard.jpg',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500',
       liveLink: 'https://loan-dashboard-rosy.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/Loan-Dashboard'
     },
     {
       title: 'Portfolio Website',
       description: 'A personal portfolio website to showcase projects and skills.',
-      image: '/images/Portfolio.jpg',
+      image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500',
       liveLink: 'https://pennywisechee.vercel.app/',
       githubLink: 'https://github.com/Chiamaka548/my-portfolio'
     }
@@ -111,6 +98,94 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body {
+          font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .grid-background {
+          width: 100%;
+          height: 100%;
+          background-image: 
+            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+          background-size: 50px 50px;
+          animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+        }
+        
+        .floating-square {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          border: 2px solid rgba(139, 92, 246, 0.3);
+          animation: float-rotate 10s ease-in-out infinite;
+        }
+        
+        .floating-circle {
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          border: 2px solid rgba(236, 72, 153, 0.3);
+          border-radius: 50%;
+          animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float-rotate {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.8; }
+        }
+        
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+        
+        .animate-blink {
+          animation: blink 1s step-start infinite;
+        }
+        
+        section {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        section#home {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        html {
+          scroll-behavior: smooth;
+        }
+      `}</style>
+
       {/* Animated Grid Background */}
       <div className="fixed inset-0 pointer-events-none opacity-20">
         <div className="grid-background"></div>
@@ -124,46 +199,89 @@ function App() {
         <div className="floating-square" style={{ bottom: '20%', left: '20%' }}></div>
       </div>
 
-      {/* Navigation */}
-      <nav className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
+      {/* Navigation - Desktop */}
+      <nav className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 hidden md:block ${
         scrolled ? 'bg-black/80' : 'bg-transparent'
       }`}>
         <div className="px-8 py-4 rounded-full border border-purple-500/30 backdrop-blur-md">
           <div className="flex items-center gap-8">
             <div className="text-2xl font-bold text-purple-400">&lt;/&gt;</div>
             
-            {/* Desktop Menu */}
-            <div className="hidden md:flex gap-6 text-sm">
+            <div className="flex gap-6 text-sm">
               <a href="#home" className="text-purple-400 hover:text-pink-400 transition-colors"># home</a>
               <a href="#about" className="text-white hover:text-purple-400 transition-colors"># about</a>
               <a href="#projects" className="text-white hover:text-purple-400 transition-colors"># projects</a>
               <a href="#experience" className="text-white hover:text-purple-400 transition-colors"># experience</a>
               <a href="#contact" className="text-white hover:text-purple-400 transition-colors"># contact</a>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-purple-400"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X /> : <Menu />}
-            </button>
           </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden mt-4 flex flex-col gap-3 text-sm animate-slide-up">
-              <a href="#home" className="text-purple-400 hover:text-pink-400 transition-colors"># home</a>
-              <a href="#about" className="text-white hover:text-purple-400 transition-colors"># about</a>
-              <a href="#projects" className="text-white hover:text-purple-400 transition-colors"># projects</a>
-              <a href="#experience" className="text-white hover:text-purple-400 transition-colors"># experience</a>
-              <a href="#contact" className="text-white hover:text-purple-400 transition-colors"># contact</a>
-            </div>
-          )}
         </div>
       </nav>
 
-      {/* Side Social Icons */}
+      {/* Navigation - Mobile */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:hidden ${
+        scrolled ? 'bg-black/90' : 'bg-black/70'
+      } backdrop-blur-md border-b border-purple-500/30`}>
+        <div className="px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="text-2xl font-bold text-purple-400">&lt;/&gt;</div>
+            
+            <button 
+              className="text-purple-400 p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Fullscreen */}
+      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${
+        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+      }`}>
+        <div className="absolute inset-0 bg-black/95 backdrop-blur-lg">
+          <div className="h-full flex flex-col items-center justify-center gap-8 text-center px-8">
+            <a 
+              href="#home" 
+              className="text-3xl text-purple-400 hover:text-pink-400 transition-all duration-300 hover:scale-110"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              # home
+            </a>
+            <a 
+              href="#about" 
+              className="text-3xl text-white hover:text-purple-400 transition-all duration-300 hover:scale-110"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              # about
+            </a>
+            <a 
+              href="#projects" 
+              className="text-3xl text-white hover:text-purple-400 transition-all duration-300 hover:scale-110"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              # projects
+            </a>
+            <a 
+              href="#experience" 
+              className="text-3xl text-white hover:text-purple-400 transition-all duration-300 hover:scale-110"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              # experience
+            </a>
+            <a 
+              href="#contact" 
+              className="text-3xl text-white hover:text-purple-400 transition-all duration-300 hover:scale-110"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              # contact
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Side Social Icons - Desktop */}
       <div className="fixed left-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:flex flex-col gap-4">
         <a href="https://github.com/Chiamaka548" target="_blank" rel="noopener noreferrer" className="p-3 border-2 border-white/20 rounded-full hover:border-purple-400 hover:scale-110 transition-all duration-300" aria-label="GitHub">
           <Github className="w-5 h-5" />
@@ -179,7 +297,28 @@ function App() {
         </a>
       </div>
 
-      {/* CV Download Button */}
+      {/* Bottom Social Icons & CV - Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-black/80 backdrop-blur-md border-t border-purple-500/30">
+        <div className="flex justify-around items-center px-4 py-4">
+          <a href="https://github.com/Chiamaka548" target="_blank" rel="noopener noreferrer" className="p-2 border-2 border-white/20 rounded-full hover:border-purple-400 transition-all duration-300" aria-label="GitHub">
+            <Github className="w-5 h-5" />
+          </a>
+          <a href="https://linkedin.com/in/chiamaka-nwafor-3803b3389" target="_blank" rel="noopener noreferrer" className="p-2 border-2 border-white/20 rounded-full hover:border-purple-400 transition-all duration-300" aria-label="LinkedIn">
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nwaforchiamaka548@gmail.com" target="_blank" rel="noopener noreferrer" className="p-2 border-2 border-white/20 rounded-full hover:border-purple-400 transition-all duration-300" aria-label="Mail">
+            <Mail className="w-5 h-5" />
+          </a>
+          <a href="https://wa.me/2347048949490" target="_blank" rel="noopener noreferrer" className="p-2 border-2 border-white/20 rounded-full hover:border-purple-400 transition-all duration-300" aria-label="Whatsapp">
+            <MessageCircle className="w-5 h-5" />
+          </a>
+          <a href="/resume.pdf" className="p-2 border-2 border-purple-400 rounded-full hover:bg-purple-400 hover:text-black transition-all duration-300" aria-label="Download CV">
+            <Download className="w-5 h-5 text-purple-400 hover:text-black" />
+          </a>
+        </div>
+      </div>
+
+      {/* CV Download Button - Desktop */}
       <div className="fixed left-8 bottom-8 z-40 hidden lg:block">
         <a href="/resume.pdf" download="Chiamaka-Nwafor-CV.pdf" className="px-6 py-3 border-2 border-purple-400 rounded-full text-purple-400 hover:bg-purple-400 hover:text-black transition-all duration-300 flex items-center gap-2 font-mono">
           <span>{'{ CV '}</span>
@@ -191,16 +330,15 @@ function App() {
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center px-6 pt-32 pb-20 relative">
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          {/* Glowing orb */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow pointer-events-none"></div>
           
           <div className="relative">
-            <p className="text-xl mb-4 animate-fade-in">
+            <p className="text-xl mb-4">
               <span className="text-white">Hi, I'm </span>
               <span className="text-purple-400 font-semibold text-3xl">Chiamaka Nwafor</span>
             </p>
             
-            <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-slide-up leading-tight">
+            <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight">
               <span className="text-white">&lt;{titleText}</span>
               <span className="text-purple-400">/&gt;</span>
               <span className="animate-blink text-white">|</span>
@@ -208,10 +346,9 @@ function App() {
           </div>
         </div>
 
-        {/* Decorative Grid Squares */}
         <div className="absolute bottom-20 left-20 w-32 h-32 grid grid-cols-3 gap-2 opacity-30">
           {[...Array(9)].map((_, i) => (
-            <div key={i} className="border border-purple-500/50 animate-float" style={{ animationDelay: `${i * 0.1}s` }}></div>
+            <div key={i} className="border border-purple-500/50" style={{ animation: `float 6s ease-in-out infinite ${i * 0.1}s` }}></div>
           ))}
         </div>
       </section>
@@ -237,7 +374,7 @@ function App() {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <div className="relative aspect-square bg-gray-900 rounded-2xl overflow-hidden border-2 border-purple-500/30 transform group-hover:scale-105 transition-all duration-500">
-                <img src="/images/MyImage.jpg" alt="Portrait" className="w-full h-full object-cover"/>
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Portrait" className="w-full h-full object-cover"/>
               </div>
             </div>
           </div>
@@ -256,10 +393,6 @@ function App() {
               <div 
                 key={index}
                 className="px-6 py-3 bg-transparent border-2 border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/10 rounded-lg transition-all duration-300 cursor-default hover:scale-110 font-medium"
-                style={{
-                  animation: visibleSections.has('skills') ? `slide-up 0.5s ease-out ${index * 0.1}s forwards` : 'none',
-                  opacity: visibleSections.has('skills') ? 1 : 0
-                }}
               >
                 {skill}
               </div>
@@ -281,10 +414,6 @@ function App() {
               <div 
                 key={index}
                 className="group bg-gray-900 border-2 border-purple-500/30 rounded-xl overflow-hidden hover:border-purple-400 hover:transform hover:scale-105 transition-all duration-500"
-                style={{
-                  animation: visibleSections.has('projects') ? `slide-up 0.6s ease-out ${index * 0.2}s forwards` : 'none',
-                  opacity: visibleSections.has('projects') ? 1 : 0
-                }}
               >
                 <div className="aspect-video overflow-hidden relative">
                   <img 
@@ -298,7 +427,6 @@ function App() {
                   <h3 className="text-lg font-bold mb-2 text-purple-400">{project.title}</h3>
                   <p className="text-gray-300 text-sm mb-4">{project.description}</p>
                   
-                  {/* Project Links */}
                   <div className="flex gap-3">
                     <a 
                       href={project.liveLink} 
@@ -335,7 +463,7 @@ function App() {
           </div>
           
           <div className="relative border-l-2 border-purple-400 pl-8 ml-4">
-            <div className="absolute w-4 h-4 bg-purple-400 rounded-full -left-[9px] top-0 animate-pulse shadow-lg shadow-purple-500/50"></div>
+            <div className="absolute w-4 h-4 bg-purple-400 rounded-full -left-[9px] top-0 shadow-lg shadow-purple-500/50" style={{animation: 'pulse 2s ease-in-out infinite'}}></div>
             
             <div className="mb-8 group">
               <span className="text-purple-400 font-bold text-lg">2025</span>
@@ -370,7 +498,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-purple-500/20">
+      <footer className="py-8 px-6 border-t border-purple-500/20 mb-20 lg:mb-0">
         <div className="max-w-4xl mx-auto text-center text-gray-400">
           <p className="text-lg">© Coded by Chiamaka Nwafor.</p>
         </div>
