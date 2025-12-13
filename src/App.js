@@ -222,7 +222,7 @@ function App() {
           <a href="https://wa.me/2347048949490" target="_blank" rel="noopener noreferrer" className="p-2 border-2 border-white/20 rounded-full hover:border-purple-400 transition-all duration-300" aria-label="Whatsapp">
             <MessageCircle className="w-5 h-5" />
           </a>
-          <a href="/resume.pdf" className="p-2 border-2 border-purple-400 rounded-full hover:bg-purple-400 hover:text-black transition-all duration-300" aria-label="Download CV">
+          <a href="" className="p-2 border-2 border-purple-400 rounded-full hover:bg-purple-400 hover:text-black transition-all duration-300" aria-label="Download CV">
             <Download className="w-5 h-5 text-purple-400 hover:text-black" />
           </a>
         </div>
@@ -230,7 +230,7 @@ function App() {
 
       {/* CV Download Button - Desktop */}
       <div className="fixed left-8 bottom-8 z-40 hidden lg:block">
-        <a href="/resume.pdf" download="Chiamaka-Nwafor-CV.pdf" className="px-6 py-3 border-2 border-purple-400 rounded-full text-purple-400 hover:bg-purple-400 hover:text-black transition-all duration-300 flex items-center gap-2 font-mono">
+        <a href="/my resume.pdf" download="Chiamaka-Nwafor-CV.pdf" className="px-6 py-3 border-2 border-purple-400 rounded-full text-purple-400 hover:bg-purple-400 hover:text-black transition-all duration-300 flex items-center gap-2 font-mono">
           <span>{'{ CV '}</span>
           <Download className="w-4 h-4" />
           <span>{' }'}</span>
@@ -400,7 +400,7 @@ function App() {
           <p className="text-xl text-gray-300 mb-8">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nwaforchiamaka548@gmail.com" target="_blank" rel="noopener noreferrer"
+          <a href="mailto:nwaforchiamaka548@gmail.com"
             className="inline-block px-8 py-4 bg-purple-500 hover:bg-purple-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50">
             Get In Touch
           </a>
